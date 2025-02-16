@@ -1,0 +1,65 @@
+server:
+  port: 8087
+  servlet:
+    context-path: /api/v1/
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/hikmahdb
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+#  mail:
+#    host: localhost
+#    port: 1025
+#    username: firoze
+#    password: firoze28
+#    properties:
+#      mail:
+#        smtp:
+#          trust: "*"
+#        auth: true
+#        starttls:
+#          enable: true
+#        connectiontimeout: 5000
+#        timeout: 3000
+#        writetimeout: 5000
+
+  mail:
+    host: smtp.gmail.com # Gmail SMTP server
+    port: 587 # Gmail SMTP port (TLS)
+    username: nooralhikmah07@gmail.com # Your Gmail address
+    password: ngbf uftg mqzd tkkf # Use an App Password (not your regular Gmail password)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true # Enable TLS
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+application:
+  security:
+    jwt:
+      secret-key: 0ed3e5666e34e213e129671e441fa9f4454ac92ef48740e5811390734f2f6f9a
+      expiration: 86400000 # in milliseconds
+
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
