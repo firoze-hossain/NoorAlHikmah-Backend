@@ -18,11 +18,14 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request, HttpServletRequest servletRequest) throws MessagingException {
-        authenticationService.register(request, servletRequest);
-        return ResponseEntity.accepted().build();
+    public ResponseEntity<RegistrationResponse> register(
+            @RequestBody @Valid RegistrationRequest request,
+            HttpServletRequest servletRequest) throws MessagingException {
 
+        String message = authenticationService.register(request, servletRequest);
+        return ResponseEntity.accepted().body(new RegistrationResponse(request.getEmail(), message));
     }
+
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
