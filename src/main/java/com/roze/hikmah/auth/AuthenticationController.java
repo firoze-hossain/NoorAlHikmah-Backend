@@ -16,16 +16,25 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
+//    @PostMapping("/register")
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//    public ResponseEntity<RegistrationResponse> register(
+//            @RequestBody @Valid RegistrationRequest request,
+//            HttpServletRequest servletRequest) throws MessagingException {
+//
+//        String message = authenticationService.register(request, servletRequest);
+//        return ResponseEntity.accepted().body(new RegistrationResponse(request.getEmail(), message));
+//    }
+
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<RegistrationResponse> register(
             @RequestBody @Valid RegistrationRequest request,
             HttpServletRequest servletRequest) throws MessagingException {
 
-        String message = authenticationService.register(request, servletRequest);
-        return ResponseEntity.accepted().body(new RegistrationResponse(request.getEmail(), message));
+        RegistrationResponse response = authenticationService.register(request, servletRequest);
+        return ResponseEntity.accepted().body(response);
     }
-
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
