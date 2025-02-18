@@ -45,7 +45,7 @@ public class ApplicationConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
     @Bean
-    public AuditorAware<Integer> auditorAware() {
+    public AuditorAware<Long> auditorAware() {
         return new ApplicationAuditAware();
     }
     @Bean
