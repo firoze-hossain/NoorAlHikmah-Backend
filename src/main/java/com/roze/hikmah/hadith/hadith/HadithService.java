@@ -19,7 +19,12 @@ public class HadithService {
     public HadithResponseDto createHadith(HadithRequestDto dto, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+        boolean hasPermission = user.getRoles().stream()
+                .anyMatch(role -> role.getName().equalsIgnoreCase("ADMIN") || role.getName().equalsIgnoreCase("SCHOLAR"));
 
+        if (!hasPermission) {
+            throw new RuntimeException("Permission denied: Only Admin and Scholar can create Hadiths");
+        }
         Hadith hadith = hadithMapper.toEntity(dto);
         hadith.setCreatedBy(user);
         Hadith savedHadith = hadithRepository.save(hadith);
